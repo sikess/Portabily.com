@@ -1,0 +1,33 @@
+ .tooltip {
+	display: inline;
+    position: relative;
+  }
+ .tooltip:hover:after  {
+    bottom: -10px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+    /* el triángulo inferior */
+    border: solid;
+    border-color:#000 transparent;
+    border-width: 0px 6px 6px 6px;
+	behavior:url(http://portabily.com/wp/wp-content/themes/Portabily/PIE.htc);
+  }
+ .tooltip:hover:before{
+    bottom: -39px;
+    content: attr(alt); /* este es el texto que será mostrado */
+    left: 20%;
+    position: absolute;
+    z-index: 98;
+    /* el formato gráfico */
+    background:#000; /* el color de fondo */
+    border-radius: 5px;
+    color: #FFF; /* el color del texto */
+    font-size: 12px;
+    padding: 5px 15px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #000;
+	behavior:url(http://portabily.com/wp/wp-content/themes/Portabily/PIE.htc);
+    width: 80px;
+  }
