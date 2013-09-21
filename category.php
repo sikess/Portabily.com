@@ -3,7 +3,7 @@
  * @package WordPress
  * @subpackage themename
  */
-
+// piedruci
 get_header(); ?>
 
 		<section id="primary" role="region">
