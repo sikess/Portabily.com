@@ -505,7 +505,8 @@ function popularPosts($num) {
 ////CORTADOR DE IMAGENES
 if ( function_exists( 'add_image_size' ) ) {  
     add_image_size('para_los_post', 330, 164, true);  
-    add_image_size('cuadrada_peque', 231, 186, true);  
+    add_image_size('cuadrada_peque', 231, 186, true); 
+    add_image_size('post_sidebar', 80, 80, true);  
 }  
 
 
@@ -513,7 +514,8 @@ add_filter('image_size_names_choose', 'hmuda_image_sizes');
 function hmuda_image_sizes($sizes) {  
     $addsizes = array(  
         "para_los_post" => __("Cada post"),
-        "cuadrada_peque" => __("Recientes on top")  
+        "cuadrada_peque" => __("Recientes on top"),
+        "post_sidebar" => __("Post sidebad"),
     );  
     $newsizes = array_merge($sizes, $addsizes);  
     return $newsizes;  
@@ -523,69 +525,150 @@ function hmuda_image_sizes($sizes) {
 
 
 
-
-function los_recientes(){//////////////////////RECIENTES DEBAJO DEL MENU PRINCIPAL
+// RECIENTES DEBAJO DEL MENU PRINCIPAL
+function los_recientes(){
 	
 	$que_posts = new WP_Query('showposts=4&orderby=post_date&order=desc');
 	while ($que_posts->have_posts()){  
-	
-		
-	echo '<div class="post_pop">';
-	echo '<div class="contenido_pop_post">';
-	
-	$que_posts->the_post();
-	echo '<div class="img_post_pop">';
-	echo'<a href="'; the_permalink(); echo'">'; the_post_thumbnail('cuadrada_peque'); echo'</a>';
-	echo '</div>';
-	echo'<div class="foot_post_pop">';
-	echo'<a href="'; the_permalink(); echo'">'; the_title(); echo'</a>';
-	/*the_excerpt();*/
-	echo'</div>';
-	
-	echo '</div></div>';
-	
-		
+    	echo '<div class="post_pop">';
+    	echo '<div class="contenido_pop_post">';
+		$que_posts->the_post();
+    	echo '<div class="img_post_pop">';
+    	echo'<a href="'; the_permalink(); echo'">'; the_post_thumbnail('cuadrada_peque'); echo'</a>';
+    	echo '</div>';
+    	echo'<div class="foot_post_pop">';
+    	echo'<a href="'; the_permalink(); echo'">'; the_title(); echo'</a>';
+    	/*the_excerpt();*/
+    	echo'</div>';
+		echo '</div></div>';
 		}
 
-	
 }
 //////////////////////FIN RECIENTES DEBAJO DEL MENU PRINCIPAL
 
+
+// LIMITA EL NUMERO DE PALABRAS DEL CONTENT
+
 function the_content_limit($max_char, $more_link_text = '(more...)', $stripteaser = 0, $more_file = '') {
- $content = get_the_content($more_link_text, $stripteaser, $more_file);
- $content = apply_filters('the_content', $content);
- $content = str_replace(']]>', ']]&gt;', $content);
- $content = strip_tags($content);
-if (strlen($_GET['p']) > 0) {
- echo "<p>";
- echo $content;
- echo "...";
- echo "&nbsp;<a href='";
- the_permalink();
- echo "'>".$more_link_text."</a>";
- echo "</p>";
+     $content = get_the_content($more_link_text, $stripteaser, $more_file);
+     $content = apply_filters('the_content', $content);
+     $content = str_replace(']]>', ']]&gt;', $content);
+     $content = strip_tags($content);
+    if (strlen($_GET['p']) > 0) {
+         // echo "<p>";
+         echo $content;
+         echo "...";
+         echo "&nbsp;<a href='";
+         the_permalink();
+         echo "'>".$more_link_text."</a>";
+         // echo "</p>";
+     }
+     else if ((strlen($content)>$max_char) && ($espacio = strpos($content, " ", $max_char ))) {
+         $content = substr($content, 0, $espacio);
+         $content = $content;
+         // echo "<p>";
+         echo $content;
+         echo "...";
+         echo "&nbsp;<a href='";
+         the_permalink();
+         echo "'>Leer m&aacutes</a>";
+         // echo "</p>";
+     }
+     else {
+         // echo "<p>";
+         echo $content;
+         echo "...";
+         echo "&nbsp;<a href='"; the_permalink();        echo "'>Leer m&aacutes</a>";
+         // echo "</p>";
+     }
  }
- else if ((strlen($content)>$max_char) && ($espacio = strpos($content, " ", $max_char ))) {
- $content = substr($content, 0, $espacio);
- $content = $content;
- echo "<p>";
- echo $content;
- echo "...";
- echo "&nbsp;<a href='";
- the_permalink();
- echo "'>Leer nota</a>";
- echo "</p>";
- }
- else {
- echo "<p>";
- echo $content;
- echo "...";
- echo "&nbsp;<a href='";
- the_permalink();
- echo "'>Leer nota</a>";
- echo "</p>";
- }
- }
+
+
+
+// PARA COLOREAR FONDO DE ITEM SELECCIONADO DEL MENU PRINCIPAL
+
+function detecta_item(){
+
+
+    if (is_home()){
+
+        echo "<style type='text/css'>#inicio_link{background-color:#000;}</style>";
+
+    }elseif (is_category('1')) {
+
+        echo"<style type='text/css'>.menu-item-174{background-color:#000;}</style>";
+    }
+
+}
+
+
+
+// Insertar Breadcrumb   Camino de pan
+
+function the_breadcrumb() {
+
+    if (!is_home()) {
+
+        echo '<span class="removed_link" title="&#039;;
+        echo get_option(&#039;home&#039;);
+            echo &#039;">';
+        bloginfo('name');
+        echo "</span> » ";
+        if (is_category() || is_single()) {
+            the_category('title_li=');
+            if (is_single()) {
+                echo " » ";
+                the_title();
+            }
+        } elseif (is_page()) {
+            echo the_title();
+        }
+
+    }
+}   
+
+// fin breadcrumb
+
+function miplugin_register_sidebars(){
+    register_sidebar(array(
+        "name" => "Nombre de la Sidebar",
+        "id" => "id-unico-para-la-sidebar",
+        "descripcion" => "Descripción de la Sidebar",
+        "class" => "clase-del-elemento",
+        "before_widget" => "<li id='%1$s' class='%2$s'>",
+        "after_widget" => "</li>",
+        "before_title" => "<h2 class='titulodelwidget'>",
+        "after_title" => "</h2>"
+    ));
+}
+add_action('widgets_init','miplugin_register_sidebars');
+
+
+
+// BUCLE PARA LOS POST MAS COMENTADOS
+function mas_comentados(){
+    echo '<div class="titulo_seccion">Más comentados</div>';
+    $que_posts = new WP_Query('showposts=5&orderby=comment_count&order=DESC');
+    while ($que_posts->have_posts()){  
+        echo '<div class="post_comentado">';
+        echo '<div class="contenido_comentado">';
+        $que_posts->the_post();
+        echo '<div class="img_comentado">';
+        echo'<a href="'; the_permalink(); echo'">'; the_post_thumbnail('post_sidebar'); echo'</a>';
+        echo '</div>';
+        echo'<div class="name_post">';
+        echo'<a href="'; the_permalink(); echo'">'; the_title(); echo'</a>';
+        /*the_excerpt();*/
+        echo'</div>';
+        echo'<div class="foot_comentado">';
+            comments_popup_link( __( '<span class="imgc">%</span>', 'themename' ) );
+        echo'</div>';
+        echo '</div></div>';
+        }
+
+}
+// .BUCLE PARA LOS POST MAS COMENTADOS
+
 
 
 ?>

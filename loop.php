@@ -9,7 +9,12 @@
 
 
 <?php /* Start the Loop */ ?>
-<?php while ( have_posts() ) : the_post(); ?>
+<?php 
+
+$que_posts = new WP_Query('offset=4');
+while ($que_posts->have_posts() ) : $que_posts->the_post(); 
+
+?>
 
 	<div class="conte_el_post">
     <div class="cuerpo_post">
@@ -34,7 +39,7 @@
     
         <?php if ( (function_exists('has_post_thumbnail')) && (has_post_thumbnail()) ) {
 	
-the_post_thumbnail('para_los_post');
+echo'<a href="'; the_permalink(); echo'">';the_post_thumbnail('para_los_post'); echo'</a>';
 } else {
 	
 $postimage = get_post_meta($post->ID, 'post-image', true);
@@ -69,7 +74,7 @@ echo '<img src="'.$postimage.'" alt="" />';
 
 		<?php if ( is_archive() || is_search() ) : // Only display Excerpts for archives & search ?>
 		<div class="entry-summary">
-			<?php the_excerpt();?>
+			<?php the_excerpt_rss();?>
 		</div><!-- .entry-summary -->
 		<?php else : ?>
 		<div class="entry-content">
@@ -83,27 +88,46 @@ echo '<img src="'.$postimage.'" alt="" />';
     
     
      <div class="foot_meta">
-
+	<tr/>
 		<footer class="entry-meta">
 			<span class="cat-links"><span class="entry-utility-prep entry-utility-prep-cat-links"><?php /*_e( 'Posted in ', 'themename' );*/ ?></span><?php /*the_category( ', ' );*/ ?></span>
 			<span class="meta-sep"> | </span>
 			<?php the_tags( '<span class="tag-links">' . __( 'Tagged ', 'themename' ) . '</span>', ', ', '<span class="meta-sep"> | </span>' ); ?>
 			<span class="comments-link"><?php  comments_popup_link( __( '<span>Comentar</span>', 'themename' ), __( '<span class="imgc">01</span>', 'themename' ), __( '<span class="imgc">%</span>', 'themename' ) ); ?></span>
-			<?php edit_post_link( __( 'Edit', 'themename' ), '<span class="meta-sep">|</span> <span class="edit-link">', '</span>' ); ?><span class="share_post">Compartir:</span>
+			<?php edit_post_link( __( 'Edit', 'themename' ), '<span class="meta-sep">|</span> <span class="edit-link">' , '</span>' ); ?>
+
+			<!--<span class="share_post">Compartir:</span>-->
+ 
+	 
+	 <div class="social_list">
+
+    	<ul>
+    		<li><a href="#"><i class="foundicon-facebook"></i></a></li>
+    		<li><a href="#"><i class="foundicon-twitter"></i></a></li>
+ 			<li><a href="#"><i class="foundicon-google-plus"></i></a></li>
+    	</ul>   	
+
+
+    </div><!--.social_list-->
+   
 		</footer><!-- #entry-meta -->
 	</article><!-- #post-<?php the_ID(); ?> -->
 
 	<?php comments_template( '', true ); ?>
     
-   
-   
+      
    </div><!--.foot_metas-->
+
     
      </div><!-- .cont_foot_post -->
-     
+
+    
+    	
     </div><!--.cuerpo_post-->
     
+    
 </div><!--.conte_el_post-->
+
 <?php endwhile; ?>
 
 

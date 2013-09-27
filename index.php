@@ -8,7 +8,8 @@ get_header(); ?>
 
 <div id="cont-recent">
 	
-    <div class="entre_seccion"></div><!--F entre_seccion-->
+    <div class="entre_seccion">
+    </div><!--F entre_seccion-->
 		<div id="conter-pop">
           <?php los_recientes(); /*echo popularPosts(4);*/ ?>
         </div>
@@ -40,12 +41,20 @@ get_header(); ?>
 
 </div><!--Fin conte_todos_post-->
         
-   <div class="contiene_wigged">
-		Sidebar
+   <div class="el_sidebar">
+
+		<div class="conte_sidebar">
+			<?php get_sidebar(); ?>
+		</div>
+
 	</div>  
     
 </div><!--FIN CONTENEDOR DE CUERPO Y LISTA DE POST-->
     
-  	
+ </div><!-- .conte_cuerpo -->	
+
+	
+
+
 <?php /*get_sidebar(); */?>
 <?php /*get_footer();*/ ?>
