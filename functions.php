@@ -646,28 +646,41 @@ add_action('widgets_init','miplugin_register_sidebars');
 
 
 // BUCLE PARA LOS POST MAS COMENTADOS
-function mas_comentados(){
-    echo '<div class="titulo_seccion">Más comentados</div>';
+function mas_comentados($titulo){
+
+
+    echo'<div class="conte_sidebar">';
+    echo '<div class="titulo_seccion">';echo $titulo; echo'</div>';
     $que_posts = new WP_Query('showposts=5&orderby=comment_count&order=DESC');
-    while ($que_posts->have_posts()){  
+    while ($que_posts->have_posts()){ 
+
         echo '<div class="post_comentado">';
-        echo '<div class="contenido_comentado">';
-        $que_posts->the_post();
-        echo '<div class="img_comentado">';
-        echo'<a href="'; the_permalink(); echo'">'; the_post_thumbnail('post_sidebar'); echo'</a>';
-        echo '</div>';
-        echo'<div class="name_post">';
-        echo'<a href="'; the_permalink(); echo'">'; the_title(); echo'</a>';
-        /*the_excerpt();*/
-        echo'</div>';
+            echo '<div class="contenido_comentado">';
+                 $que_posts->the_post();
+                 
+            echo '<div class="img_comentado">';
+                echo'<a href="'; the_permalink(); echo'">'; the_post_thumbnail('post_sidebar'); echo'</a>';
+            echo '</div>';
+
+            echo'<div class="name_post">';
+              echo'<a href="'; the_permalink(); echo'">'; the_title(); echo'</a>';
+             /*the_excerpt();*/
+            echo'</div>';
+
         echo'<div class="foot_comentado">';
             comments_popup_link( __( '<span class="imgc">%</span>', 'themename' ) );
-        echo'</div>';
-        echo '</div></div>';
+        echo'</div>';//.foot_comentado
+       
+        echo'</div>';//.post_comentado
+        echo'</div>';//.contenido_comentado
+
         }
+    echo'</div>';
 
 }
 // .BUCLE PARA LOS POST MAS COMENTADOS
+
+
 
 
 

@@ -19,11 +19,11 @@ get_header(); ?>
 
 <div class="contenedor"><!--CONTENEDOR DE CUERPO Y LISTA DE POST-->
 
-<div class="entre_seccion"></div><!--F entre_seccion-->
+	<div class="entre_seccion"></div><!--F entre_seccion-->
 
-<div id="conte_cuerpo">
+	<div id="conte_cuerpo">
 
-<div class="conte_todos_post">
+	<div class="conte_todos_post">
 
 <div class="cabeza_secciones">
 	<div class="contenido_cabeza_secciones">
@@ -43,9 +43,9 @@ get_header(); ?>
         
    <div class="el_sidebar">
 
-		<div class="conte_sidebar">
+		<!-- <div class="conte_sidebar"> -->
 			<?php get_sidebar(); ?>
-		</div>
+		<!-- </div> -->
 
 	</div>  
     

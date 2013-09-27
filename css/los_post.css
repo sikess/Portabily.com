@@ -7,7 +7,6 @@
 	height:28px;
 	width:706px;
 	padding:6px;
-	font-size:22px;
 	color:#FFF;
 	vertical-align:baseline;
 	margin-bottom:5px;
@@ -16,9 +15,9 @@
 }
 
 .contenido_cabeza_secciones{
-	display:table-cell;
-	vertical-align:middle;
+	
 	height:32px;
+	font-size:18px;
 }
 /*///FIN CABEZA SECCIONES///*/
 
@@ -236,16 +235,16 @@
 }
 
 .conte_sidebar{
-	padding-bottom: 4px;
-	height: auto;
+	display: inline-block;
+	margin-bottom: 20px;
 }
 
 .titulo_seccion{
 	background-color: #007DD9; 
 	font-size: 18px;
 	color:#FFF;
-	height: 30px;
-	padding: 10px 0px 0px 10px;
+	height: 33px;
+	padding: 7px 0px 0px 10px;
 	vertical-align: middle;
 	border-top: 4px solid #000; 
 }

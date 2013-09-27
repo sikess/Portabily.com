@@ -301,9 +301,7 @@ ul .sprite-sesion a{ background-position: 8px -145px; width: 24px; height: 24px;
 	height:37px;
 	margin-top:20px;
 	background-color:#007DD9;
-	border-bottom-style:solid;
-	border-bottom-color:#000;
-	border-bottom-width:7px;
+	border-bottom: 7px solid #000;
 
 }
 
@@ -370,7 +368,7 @@ ul .sprite-sesion a{ background-position: 8px -145px; width: 24px; height: 24px;
 	margin:0 auto;
 	width:1000px;	
 	background-color:#CCC;
-	height:287px;
+	height:290px;
 }
 #cont-recent img{
 	border:none;	
@@ -391,7 +389,7 @@ ul .sprite-sesion a{ background-position: 8px -145px; width: 24px; height: 24px;
 .post_pop{
 	float:left;
 	width:250px;
-	height:292px;
+	height:288px;
 	background-color:#EEE;
 	/*border-right: 1px solid #FFF;*/
 }
@@ -399,20 +397,23 @@ ul .sprite-sesion a{ background-position: 8px -145px; width: 24px; height: 24px;
 .contenido_pop_post{
 	margin:9px;
 	/*padding:4px;*/
-	background-color:#999;
+	background-color:#212121;
 	height:268px;
+	width: 231px;
 }
 
 .img_post_pop{
 	background-color:#FFF;
 	height:186px;
-	border-bottom: 2px solid #212121;
+	border-bottom: 2px solid #CCC;
+	width: 231px;
 }
 
 .foot_post_pop{
-	background-color:#212121;
+	/*background-color:#212121;*/
 	height:75px;
 	padding:6px;
+	/*width: 219px*/;
 }
 
 .foot_post_pop a{
